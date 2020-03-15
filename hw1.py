@@ -28,7 +28,7 @@ i = -1
 for row in data:
     i += 1
     if row["WDSD"] == "-99.000" or row["WDSD"] == "-999.000":
-        del data[i]
+        row["WDSD"] = 0
     
 header = ["C0A880", "C0F9A0", "C0G640", "C0R190", "C0X260"]
 
@@ -52,7 +52,10 @@ for i in range(5):
     my_list[i].sort()
     my_list[i] = my_list[i][len(my_list[i]) - 1] - my_list[i][0]
     data[i].append(header[i])
-    data[i].append(my_list[i])
+    if my_list[i] == 0:
+        data[i].append('None')
+    else :
+        data[i].append(my_list[i])
     
 
 # Retrive ten data points from the beginning.
