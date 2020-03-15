@@ -26,9 +26,10 @@ with open(cwb_filename) as csvfile:
 
 i = -1
 for row in data:
-    i += 1
     if row["WDSD"] == "-99.000" or row["WDSD"] == "-999.000":
-        row["WDSD"] = 0
+        del data[i]
+    else:
+        i -= 1
     
 header = ["C0A880", "C0F9A0", "C0G640", "C0R190", "C0X260"]
 
