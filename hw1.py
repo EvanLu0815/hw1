@@ -24,13 +24,12 @@ with open(cwb_filename) as csvfile:
 # Retrive all data points which station id is "C0X260" as a list.
 # target_data = list(filter(lambda item: item['station_id'] == 'C0X260', data))
 
-i = -1
-for row in data:
-    if row["WDSD"] == "-99.000" or row["WDSD"] == "-999.000":
+i = 0
+while i in range(len(data)):
+    if data[i]["WDSD"] == "-99.000" or data[i]["WDSD"] == "-999.000":
         del data[i]
     else:
-        i -= 1
-    
+        i += 1
 header = ["C0A880", "C0F9A0", "C0G640", "C0R190", "C0X260"]
 
 my_list = [[] for i in range(5)]
@@ -50,13 +49,14 @@ data.clear()
 data = [[]for i in range(5)]
         
 for i in range(5):
-    my_list[i].sort()
-    my_list[i] = my_list[i][len(my_list[i]) - 1] - my_list[i][0]
-    data[i].append(header[i])
-    if my_list[i] == 0:
-        data[i].append('None')
-    else :
+    if len(my_list[i]) >1:
+        my_list[i].sort()
+        my_list[i] = my_list[i][len(my_list[i]) - 1] - my_list[i][0]
+        data[i].append(header[i])
         data[i].append(my_list[i])
+    else:
+        data[i].append(header[i])
+        data[i].append('None')
     
 
 # Retrive ten data points from the beginning.
